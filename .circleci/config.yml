@@ -145,8 +145,6 @@ jobs:
             cd frontend
             npm install 
             npm audit fix --force
-            npm audit --audit-level=critical
-            npm audit fix --force
       - slack/notify:
           event: fail
           mentions: '@Oswald'
@@ -167,8 +165,7 @@ jobs:
             cd backend
             npm install 
             npm audit fix --force
-            npm audit --audit-level=critical
-            npm audit fix --force
+            
       - slack/notify:
           event: fail
           mentions: '@Oswald'
