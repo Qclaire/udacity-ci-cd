@@ -178,7 +178,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - name: Udpdate apt-get
+      - name: Update apt
         become: true
         apt:
           name: "*"
@@ -189,7 +189,8 @@ jobs:
           name:
             - tar
             - gzip
-          state: present
+          state: latest 
+          update_cache: yes
      
       - run:
           name: Ensure back-end infrastructure exists
