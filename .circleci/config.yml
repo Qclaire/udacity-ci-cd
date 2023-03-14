@@ -11,7 +11,7 @@ commands:
       - run:
           name: Destroy environments
           command: |
-            aws cloudformation delete-stack --stack-name ${stack_name}
+            aws cloudformation delete-stack --stack-name <<stack_name>>
           when: on_fail
 
   # revert-migrations:
@@ -214,7 +214,7 @@ jobs:
             - project/.circleci/ansible/inventory.txt
 
       - destroy-environment:
-          parameters.stack_name: "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
+          stack_name: "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
           
   # configure-infrastructure:
   #   docker:
