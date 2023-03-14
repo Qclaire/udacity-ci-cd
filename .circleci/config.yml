@@ -181,8 +181,7 @@ jobs:
       - run:
           name: Update apt packages
           command: |
-            apt install upgrade
-            apt install tar gzip
+            yum -y install tar gzip
           
       - run:
           name: Ensure back-end infrastructure exists
