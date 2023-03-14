@@ -179,13 +179,16 @@ jobs:
     steps:
       - checkout
       - name: Udpdate apt-get
-        apt-get:
+        apt:
           name: "*"
           state: latest
       - name: Install tar gzip
         become: true
-        apt-get:
-          name: "tar, gzip"
+        apt:
+          name:
+            - tar
+            - gzip
+          state: present
      
       - run:
           name: Ensure back-end infrastructure exists
