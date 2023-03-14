@@ -178,10 +178,11 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - name: upgrade apt
-        become: true
-        apt:
-          upgrade: "yes"
+      - run:
+          name: Update apt packages
+          command: |
+            apt install upgrade
+            apt install tar gzip
           
       # - name: install tar and gzip
       #   become: true
