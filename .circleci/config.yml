@@ -11,7 +11,7 @@ commands:
       - run:
           name: Destroy environments
           command: |
-            aws cloudformation delete-stack --stack-name ${parameters.stack_name}
+            aws cloudformation delete-stack --stack-name "${parameters.stack_name}"
           when: on_fail
 
   # revert-migrations:
@@ -179,7 +179,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Update apt packages
+          name: install tar and gzip packages
           command: |
             yum -y install tar gzip
           
