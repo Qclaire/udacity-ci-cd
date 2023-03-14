@@ -178,17 +178,17 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - name: upgrade apt
-        become: true
-        apt:
-          upgrade: "yes"
+      # - name: upgrade apt
+      #   become: true
+      #   apt:
+      #     upgrade: "yes"
           
-      - name: install tar and gzip
-        become: true
-        apt:
-          name: ["tar", "gzip"]
-          state: latest
-          update_cache: yes
+      # - name: install tar and gzip
+      #   become: true
+      #   apt:
+      #     name: ["tar", "gzip"]
+      #     state: latest
+      #     update_cache: yes
       # - run:
       #     name: Ensure back-end infrastructure exists
       #     command: |
