@@ -179,10 +179,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: install tar and gzip
-        command: |
-          sudo apt update 
-          sudo apt install tar gzip
+          name: install tar and gzip
+          command: |
+            sudo apt update 
+            sudo apt install tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
