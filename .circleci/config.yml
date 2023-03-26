@@ -225,25 +225,25 @@ jobs:
             fi
           when: on_fail # Run this step only when the previous steps fail
 
-  # configure-infrastructure:
-  #   docker:
-  #     - image: python:3.7-alpine3.11
-  #   steps:
-  #     - checkout
-  #     - add_ssh_key:
-  #         fingerprint: ["01:e7:e9:a8:b9:98:b1:6e:e6:4f:43:39:97:38:08:ce"]
-  #     # attach workspace
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           # Your code here
-  #           exit 1
-  #     - run:
-  #         name: Configure server
-  #         command: |
-  #           # Your code here
-  #           exit 1
-  #     # Here's where you will add some code to rollback on failure
+  configure-infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_key:
+          fingerprint: ["0c:47:f3:85:c1:5b:fd:fe:36:cd:31:be:70:1d:b7:58"]
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt update && sudo apt install gzip tar ansible awscli -y
+      # - run:
+      #     name: Configure server
+      #     command: |
+      #       # Your code here
+
+      # Here's where you will add some code to rollback on failure
 
 #   run-migrations:
 #     docker:
