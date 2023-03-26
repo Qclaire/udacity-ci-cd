@@ -37,13 +37,13 @@ jobs:
     docker:
       - image: "cimg/base:stable"
     steps:
-      # - slack/notify:
-      #     event: fail
-      #     mentions: "@Oswald"
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: basic_success_1
+      - slack/notify:
+          event: fail
+          mentions: "@Oswald"
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
   build-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -60,13 +60,13 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
-      # - slack/notify:
-      #     event: fail
-      #     mentions: "@Oswald"
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: basic_success_1
+      - slack/notify:
+          event: fail
+          mentions: "@Oswald"
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
 
   build-backend:
     docker:
@@ -84,13 +84,13 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
-      # - slack/notify:
-      #     event: fail
-      #     mentions: "@Oswald"
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: basic_success_1
+      - slack/notify:
+          event: fail
+          mentions: "@Oswald"
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
   test-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -104,13 +104,13 @@ jobs:
             cd frontend
             npm install
             npm run test
-      # - slack/notify:
-      #     event: fail
-      #     mentions: "@Oswald"
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: basic_success_1
+      - slack/notify:
+          event: fail
+          mentions: "@Oswald"
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
   test-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -124,13 +124,13 @@ jobs:
             cd backend
             npm install
             npm run test
-      # - slack/notify:
-      #     event: fail
-      #     mentions: "@Oswald"
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: basic_success_1
+      - slack/notify:
+          event: fail
+          mentions: "@Oswald"
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -144,13 +144,13 @@ jobs:
             cd frontend
             npm install 
             npm audit fix --force
-      # - slack/notify:
-      #     event: fail
-      #     mentions: "@Oswald"
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: basic_success_1
+      - slack/notify:
+          event: fail
+          mentions: "@Oswald"
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
   scan-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -165,13 +165,13 @@ jobs:
             npm install 
             npm audit fix --force
 
-      # - slack/notify:
-      #     event: fail
-      #     mentions: "@Oswald"
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: basic_success_1
+      - slack/notify:
+          event: fail
+          mentions: "@Oswald"
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli
