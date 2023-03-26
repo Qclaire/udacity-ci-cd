@@ -202,11 +202,15 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            aws ec2 describe-instances \
-              --instance-ids i-${CIRCLE_WORKFLOW_ID:0:7} \
+            INSTANCE_ID=$(aws cloudformation describe-stack-resources \
+              --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'StackResources[?LogicalResourceId==`EC2Instance`].PhysicalResourceId' \
+              --output text)
+            PUBLIC_IP=$(aws ec2 describe-instances \
+              --instance-ids $INSTANCE_ID \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --output text >> inventory.txt
-
+              --output text)
+            echo "$PUBLIC_IP" >> inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -216,8 +220,8 @@ jobs:
           name: Destroy environment on fail
           command: |
             if [ $CIRCLE_JOB == "deploy-infrastructure" ] && [ $CIRCLE_WORKFLOW_FAILED == "true" ]; then
-              circleci step halt # Stop running the current job
-              circleci local execute --job destroy-environment # Execute the destroy-environment job
+              circleci step halt
+              circleci local execute --job destroy-environment
             fi
           when: on_fail # Run this step only when the previous steps fail
 
