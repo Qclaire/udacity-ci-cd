@@ -189,7 +189,7 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-             
+
       - run:
           name: Ensure front-end infrastructure exist
           command: |
@@ -198,7 +198,6 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-              
 
       - run:
           name: Add back-end ip to ansible inventory
@@ -213,10 +212,14 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
 
-      - destroy-environment:
-          stack_name: "udapeople-backend-{CIRCLE_WORKFLOW_ID:0:7}"
-
-
+      - run:
+          name: Destroy environment on fail
+          command: |
+            if [ $CIRCLE_JOB == "deploy-infrastructure" ] && [ $CIRCLE_WORKFLOW_FAILED == "true" ]; then
+              circleci step halt # Stop running the current job
+              circleci local execute --job destroy-environment # Execute the destroy-environment job
+            fi
+          when: on_fail # Run this step only when the previous steps fail
 
   # configure-infrastructure:
   #   docker:
