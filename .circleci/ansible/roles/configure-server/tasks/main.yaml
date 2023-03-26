@@ -1,0 +1,26 @@
+---
+- name: Update apt cache
+  become: true
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+- name: Install python3
+  become: true
+  apt:
+    name: python3
+    state: present
+- name: Install Node.js
+  become: true
+  apt:
+    name: nodejs
+    state: present
+- name: Install npm
+  become: true
+  apt:
+    name: npm
+    state: present
+- name: Install pm2
+  become: true
+  npm:
+    name: pm2
+    global: yes
