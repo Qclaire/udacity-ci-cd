@@ -230,14 +230,15 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - add_ssh_key:
-          fingerprint: ["0c:47:f3:85:c1:5b:fd:fe:36:cd:31:be:70:1d:b7:58"]
+      - add_ssh_keys:
+          fingerprints:
+            - "0c:47:f3:85:c1:5b:fd:fe:36:cd:31:be:70:1d:b7:58"
       - attach_workspace:
           at: ~/
       - run:
           name: Install dependencies
           command: |
-            sudo apt update && sudo apt install gzip tar ansible awscli -y
+            sudo apt update && sudo apt install -y gzip tar ansible awscli
       # - run:
       #     name: Configure server
       #     command: |
