@@ -211,6 +211,10 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             echo "$PUBLIC_IP" >> inventory.txt
+      - run:
+          name: Verify inventory
+          command: cat inventory.txt
+
       - persist_to_workspace:
           root: ~/
           paths:
