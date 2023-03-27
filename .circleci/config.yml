@@ -239,7 +239,13 @@ jobs:
           name: Install dependencies
           command: |
             apk update 
-            apk add gzip tar ansible aws-cli
+            apk add gzip tar ansible
+            pip install awscli
+      - run:
+          name: Verify the dependencies
+          command: |
+            ansible --version
+            aws --version
       - run:
           name: Configure server
           command: |
@@ -247,6 +253,14 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml
 
       # Here's where you will add some code to rollback on failure
+      - run:
+          name: Destroy environment on fail
+          command: |
+            if [ $CIRCLE_JOB == "configure-infrastructure" ] && [ $CIRCLE_WORKFLOW_FAILED == "true" ]; then
+              circleci step halt
+              circleci local execute --job destroy-environment
+            fi
+          when: on_fail
 
 #   run-migrations:
 #     docker:
